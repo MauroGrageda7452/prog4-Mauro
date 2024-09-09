@@ -36,6 +36,10 @@ class SalarioPorMes implements Salario{
 }
 
 
+// Builder: 
+    // -- Porque se llega a crear objetos en empleado pero variando para darle si tiene una tarifa por hora o un sueldo por mes. 
+//Factory
+    // -- 
 export class Empleado {
     private salario!: Salario;
     constructor(private horas:number,private tarifa = 0, private sueldo : number = 0) {
