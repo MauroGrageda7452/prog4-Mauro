@@ -1,19 +1,3 @@
-// interface Salario {
-//     Calculo():number
-// }
-// interface Reporte {
-//     imprimir() : void;
-// } 
-
-// class Salario{
-//     Calculo(sueldo: number) : number{
-//         return sueldo;
-//     }
-
-//     Calculo(horas : number, tarifa : number) : number{
-//         return horas * tarifa;
-//     }
-// }
 
 interface Salario{
     Calculo(e : Empleado) : number;
@@ -37,9 +21,15 @@ class SalarioPorMes implements Salario{
 
 
 // Builder: 
-    // -- Porque se llega a crear objetos en empleado pero variando para darle si tiene una tarifa por hora o un sueldo por mes. 
+    // -- Porque se llega a crear objetos en empleado pero variando para darle si tiene una tarifa por hora o un sueldo por mes. Aún así el obeto final es siempre un empleado que tinee un salario calculado basado en estas configuraciones.
 //Factory
-    // -- 
+    // -- En comó determino que tipo de salario asignar al empleado (por hora o por mes) en el constructor de la clase Empleado, dependiendo de los valores proporcionados.
+
+// Strategy : 
+    // Está presente en la forma en que se maneja el cálculo del salario mediante las interfaces Salario y las clases SalarioPorHora y SalarioPorMes. Dependiendo del tipo de empleado,
+    // el cálculo del salario cambia sin modificar la lógica del empleadi en sí, delegando la responsabilidad a un objeto externo. 
+
+
 export class Empleado {
     private salario!: Salario;
     constructor(private horas:number,private tarifa = 0, private sueldo : number = 0) {
@@ -133,12 +123,10 @@ export class ReporteDeSalario extends Reporte{
     }
 
     SalarioEmpleados(){
-        //console.log(this.Encabezado());
         var totalSalario = 0;
         this.empleados.forEach(empleado => {
             totalSalario += empleado.CalculoSalarioEmpleado();
         });
-        //console.log(`Se gasto en los empleados un total de : $${totalSalario}`)
         return totalSalario
     }
 }
@@ -148,37 +136,12 @@ export class ReporteDeHoras extends Reporte{
         super(fecha, hora)
     }
 
-    HorasEmpleados(){
-        //console.log(this.Encabezado());
-        
+    HorasEmpleados(){        
         var totalHoras = 0;
         this.empleados.forEach(empleado => {
             totalHoras += empleado.getHoras();
         });
-        //console.log(` Se trabajo en un total de ${totalHoras} en la compañia.`)        
         return totalHoras
     }
 
 }
-
-// class EmpleadoMes extends Empleado implements Salario{
-//     constructor(private sueldo, horas){
-//         //super();
-//         super(horas);
-//         this.sueldo = sueldo;
-//     }
-
-//     Calculo(): number {
-//         return this.sueldo;
-//     }
-// }
-
-// class EmpleadoHora extends Empleado implements Salario{
-//     constructor(private tarifa, horas){
-//         super(horas);
-//     }
-
-//     Calculo(): number {
-//         return this.horas * this.tarifa
-//     }
-// }
